@@ -1,6 +1,6 @@
 import re
 import csv
-import bwDict
+from bwDict import bwdict
 
 with open('originalorgInputFile.txt', 'r',encoding='utf-8') as orgInputFile:
     orgInputFile.seek(0)
@@ -20,7 +20,7 @@ orgInputFile.close()
 
 with open('1mod.txt', 'r', encoding='utf-8') as firstModFile:
     firstModFile.seek(0)
-    with open('2mod.txt', 'w', encoding='utf-8') as secongdModFile:
+    with open('2mod.txt', 'w', encoding='utf-8') as secondModFile:
         for line in firstModFile:
             editedLine = line
             editedLine = editedLine.replace('Dobry ', "")
@@ -36,12 +36,12 @@ with open('1mod.txt', 'r', encoding='utf-8') as firstModFile:
     secondModFile.close() 
 firstModFile.close()
 
-
 with open('2mod.txt', 'r', encoding='utf-8') as secondModFile:
-    secondModFile.seek(0)
-                def searchForKey(secondModFile, bwDict):
-                for key in bwDict:
-                    for secondModFile in bwDict[key]:
-                        if bwDict in secondModFile:
-                            print('hello')
-    for line in secondModFile:
+    for line in secondModFile.readlines():
+        first_word = line.split(" ")[0]
+        last_word = line.split(" ")[-1].replace("\n","")
+
+        print("{},{},{},{}".format(line.replace("\n",""),
+            bwdict.get(first_word,0),
+            bwdict.get(last_word,0),
+            int(bwdict.get(first_word,0))+int(bwdict.get(last_word,0))))
